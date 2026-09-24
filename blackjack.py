@@ -7,13 +7,13 @@ import locale
 locale.setlocale(locale.LC_ALL, "en_US.UTF-8")
 
 
-def intro():
+def main():
     print("Welcome to Blackjack! Ready to play?")
     if input("Press enter to continue...") == "":
         setup()
     else:
         print("Invalid input. Please try again.")
-        intro()
+        main()
 
 
 def setup():
@@ -405,5 +405,5 @@ def ask_play_again():
         print("Invalid answer. Please try again.")
         ask_play_again()
 
-
-intro()
+if __name__ == "__main__":
+    main()
