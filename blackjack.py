@@ -104,7 +104,9 @@ def player_turn():
             "\nWhat do you want to do? Options: [(H)it|(S)tay|(D)ouble|(Sp)lit]: "
         ).lower()
     else:
-        action = input("\nWhat do you want to do? Options: [(H)it|(S)tay|(D)ouble]: ").lower()
+        action = input(
+            "\nWhat do you want to do? Options: [(H)it|(S)tay|(D)ouble]: "
+        ).lower()
 
     # If 'hit', give the player another card and add it to their point value
     # If the point value is over 21, they bust, and it's game over. If not, ask 'hit' or 'stay' again.
@@ -122,8 +124,8 @@ def player_turn():
                 print("Round over.")
                 ask_play_again()
             else:
-               first_hand_final_value = 0
-               second_hand_in_split()
+                first_hand_final_value = 0
+                second_hand_in_split()
         else:
             player_turn()
 
@@ -158,6 +160,9 @@ def player_turn():
                     ask_play_again()
                 else:
                     second_hand_in_split()
+
+            else:
+                settle()
 
         else:
             print(
@@ -247,6 +252,7 @@ def player_busts():
     else:
         return False
 
+
 def dealer_blackjack_check():
     global bank, bank_formatted, bet, deck, player_cards, dealer_cards, player_hand_value, dealer_hand_value, first_split_hand, second_split_hand
     if dealer_hand_value == 21 and player_hand_value != 21:
@@ -265,7 +271,7 @@ def settle():
     global bank, bank_formatted, bet, deck, player_cards, dealer_cards, player_hand_value, dealer_hand_value, first_split_hand, second_split_hand
     time.sleep(1.5)
 
- # --- SETTLE SECOND HAND (or the only hand if no split occurred) ---
+    # --- SETTLE SECOND HAND (or the only hand if no split occurred) ---
     winner(player_hand_value)
 
     # --- SETTLE FIRST HAND (only if a split actually happened) ---
@@ -275,6 +281,7 @@ def settle():
 
     update_bank_and_bet()
     ask_play_again()
+
 
 def winner(hand_value):
     global bank, bank_formatted, bet, deck, player_cards, dealer_cards, player_hand_value, dealer_hand_value, first_split_hand, second_split_hand
@@ -288,20 +295,15 @@ def winner(hand_value):
         bank += bet * 2
         print("\nDealer busts! You win!")
 
-
     elif (
-        not player_busts()
-        and dealer_hand_value < 22
-        and dealer_hand_value > hand_value
+        not player_busts() and dealer_hand_value < 22 and dealer_hand_value > hand_value
     ):
         print("\nDealer wins. Better luck next time.")
-
 
     # If player wins, add bet x2 to player's bank
     elif dealer_hand_value < 22 and dealer_hand_value < hand_value:
         bank += bet * 2
         print("\nYou win!")
-
 
     elif dealer_hand_value == hand_value:
         bank += bet
@@ -402,5 +404,6 @@ def ask_play_again():
     else:
         print("Invalid answer. Please try again.")
         ask_play_again()
+
 
 intro()
